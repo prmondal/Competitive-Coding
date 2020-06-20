@@ -26,12 +26,39 @@ using namespace __gnu_pbds;
 #define vll vector<pll>
 #define viii vector<tri>
 #define viii2 vector<tri2>
+#define umapi unordered_map<int,int>
+#define mapi map<int,int>
+#define useti unordered_set<int>
+#define seti set<int>
 #define pqueue priority_queue< int >
 #define pdqueue priority_queue< int,vi ,greater< int > >
 #define coutp(i) cout << fixed << setprecision(i)
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+#define endl "\n"
+
+void solve() {
+	int n,k;
+	cin>>n>>k;
+
+	int i;
+	int ans = 0;
+	rep(i, n) {
+		int p;
+		cin>>p;
+		if (p > k) ans += (p-k);
+	}
+
+	cout << ans << endl;
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    cin.tie(NULL);
+
+    int t;
+    cin>>t;
+
+    while(t--) {
+        solve();
+    }
 }

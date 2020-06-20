@@ -26,12 +26,68 @@ using namespace __gnu_pbds;
 #define vll vector<pll>
 #define viii vector<tri>
 #define viii2 vector<tri2>
+#define umapi unordered_map<int,int>
+#define mapi map<int,int>
+#define useti unordered_set<int>
+#define seti set<int>
 #define pqueue priority_queue< int >
 #define pdqueue priority_queue< int,vi ,greater< int > >
 #define coutp(i) cout << fixed << setprecision(i)
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+#define endl "\n"
+
+inline ll count2(ll num) {
+	ll count = 0;
+	while(!(num & 1)) {
+		num = num >> 1;
+		count++;
+	}
+
+	return count;
+}
+
+inline ll fpow(ll x, int p) {
+    ll ans = 1;
+
+    while(p) {
+        if (p&1) ans = ans * x;
+        p = p >> 1;
+        x = x * x;
+    }
+
+    return ans;
+}
+
+void solve() {
+	ll ts;
+	cin >> ts;
+
+	if (ts == 1) {
+		cout << 0 << endl;
+		return;
+	}
+
+	ll ans = 0, i;
+	
+	if (ts & 1) {
+		ans = ts / 2;
+	} else {
+		ll tsCount2 = count2(ts);
+		ll start = fpow(2LL, tsCount2+1);
+		ans = ts/start;
+	}
+
+	cout << ans << endl;
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    cin.tie(NULL);
+
+    int t;
+    cin>>t;
+
+    while(t--) {
+        solve();
+    }
 }
