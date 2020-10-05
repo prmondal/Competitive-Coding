@@ -5,7 +5,6 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-#define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define ll long long int
 #define f(i,a,b) for(i=a;i<b;i++)
 #define fd(i,a,b) for(i=a-1;i>=b;i--)
@@ -37,11 +36,53 @@ using namespace __gnu_pbds;
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 
 void solve() {
+    int n, k;
+    cin >> n >> k;
 
+    string s;
+    cin >> s;
+
+    int c0 = 0, c1 = 0, totalSeg = n/k;
+    for (auto& c: s) {
+        if (c == '0') c0++;
+        if (c == '1') c1++; 
+    }
+
+    if (c0 % totalSeg != 0 || c1 % totalSeg != 0) {
+        cout << "IMPOSSIBLE" << endl;
+        return;
+    }
+
+    int s0 = c0 / totalSeg;
+    int s1 = c1 / totalSeg;
+
+    string ans = "";
+    bool flip = false;
+
+    for (int i = 0; i < totalSeg; i++) {
+        if (!flip) {
+            for (int j = 0; j < s0; j++)
+                ans += "0";
+        
+            for (int j = 0; j < s1; j++)
+                ans += "1";
+        } else {
+            for (int j = 0; j < s1; j++)
+                ans += "1";
+            
+            for (int j = 0; j < s0; j++)
+                ans += "0";
+        }
+
+        flip = !flip;    
+    }
+
+    cout << ans << endl;
 }
 
 int main() {
-    fastio;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
     int t;
     cin>>t;

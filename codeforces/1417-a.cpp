@@ -36,8 +36,31 @@ using namespace __gnu_pbds;
 #define coutp(i) cout << fixed << setprecision(i)
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 
-void solve() {
+const int maxn = 1e5+7;
 
+void solve() {
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> v(n);
+    int m = maxn;
+    int i, j;
+    rep(i,n) {
+        cin >> v[i];
+        if (m > v[i]) {
+            m = v[i];
+            j = i;
+        }
+    }
+
+    int ans = 0;
+
+    rep(i,n) {
+        if (j == i) continue;
+        ans += (k-v[i])/m;
+    }
+
+    cout << ans << endl;
 }
 
 int main() {

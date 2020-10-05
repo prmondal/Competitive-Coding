@@ -5,7 +5,6 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-#define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define ll long long int
 #define f(i,a,b) for(i=a;i<b;i++)
 #define fd(i,a,b) for(i=a-1;i>=b;i--)
@@ -37,11 +36,27 @@ using namespace __gnu_pbds;
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 
 void solve() {
+    int n;
+    cin >> n;
 
+    int i;
+    rep(i,n) {
+        int x, y;
+        cin >> x >> y;
+    }
+
+    ll ans = n;
+    while(n >= 6) {
+        n /= 2;
+        ans += n;
+    }
+
+    cout << ans << endl;
 }
 
 int main() {
-    fastio;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
     int t;
     cin>>t;

@@ -35,9 +35,37 @@ using namespace __gnu_pbds;
 #define pdqueue priority_queue< int,vi ,greater< int > >
 #define coutp(i) cout << fixed << setprecision(i)
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+const double pi = acos(-1.0);
 
 void solve() {
+    int n;
+    cin >> n;
 
+    vi v(n+1), k(n+1, 0), prev(n+1, 0);
+    int i;
+
+    f(i,1,n+1) {
+        cin >> v[i-1];
+
+        int x = v[i-1];
+        k[x] = max(k[x], i - prev[x]);
+        prev[x] = i;
+    }
+
+    vi ans(n+1, -1);
+
+    f(i,1,n+1) {
+        k[i] = max(k[i], n+1-prev[i]);
+
+        int j;
+        f(j,k[i],n+1) {
+            if (ans[j] != -1) break;
+            ans[j] = i;
+        }    
+    }
+
+    f(i,1,n+1) cout << ans[i] << " ";
+    cout << "\n";
 }
 
 int main() {

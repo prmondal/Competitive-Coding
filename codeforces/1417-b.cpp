@@ -37,7 +37,38 @@ using namespace __gnu_pbds;
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 
 void solve() {
+    int n,t;
+    cin>>n>>t;
 
+    vi v(n), ans(n, 0);
+    umapi m1, m2;
+
+    int i;
+    rep(i,n) {
+        cin >> v[i];
+        int rest = t-v[i];
+
+        if (m1.find(rest) == m1.end()) {
+            m1[v[i]]++;
+            ans[i] = 0;
+        } else {
+            if (m2.find(rest) == m2.end()) {
+                m2[v[i]]++;
+                ans[i] = 1;
+            } else {
+                if (m1[v[i]] < m2[v[i]]) {
+                    m1[v[i]]++;
+                    ans[i] = 0;
+                } else {
+                    m2[v[i]]++;
+                    ans[i] = 1;
+                }
+            }
+        }
+    }
+
+    rep(i,n) cout << ans[i] << " ";
+    cout << "\n";
 }
 
 int main() {

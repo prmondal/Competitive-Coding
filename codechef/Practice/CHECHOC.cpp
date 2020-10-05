@@ -37,7 +37,17 @@ using namespace __gnu_pbds;
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 
 void solve() {
+    int n,m,x,y;
+    cin >> n >> m >> x >> y;
 
+    int a = (n*m+1)/2;
+    int b = n*m-a;
+
+    int x1 = min(x,y);
+    int x2 = min(x,y-x1);
+
+    if (n == 1 && m == 1) cout << x << endl;
+    else cout << a*x1 + b*x2 << endl;
 }
 
 int main() {

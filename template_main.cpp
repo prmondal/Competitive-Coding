@@ -5,6 +5,7 @@
 using namespace std;
 using namespace __gnu_pbds;
 
+#define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define ll long long int
 #define f(i,a,b) for(i=a;i<b;i++)
 #define fd(i,a,b) for(i=a;i>=b;i--)
@@ -18,7 +19,7 @@ using namespace __gnu_pbds;
 #define pii pair< int,int >
 #define pll pair< ll,ll >
 #define sz(a) a.size()
-#define inf (1000*1000*1000+5)
+#define inf (1000*1000*1000+7)
 #define all(a) a.begin(),a.end()
 #define tri pair<int,pii>
 #define tri2 pair<pii,int>
@@ -32,6 +33,5 @@ using namespace __gnu_pbds;
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    fastio;
 }
