@@ -6,7 +6,6 @@
 // using namespace __gnu_pbds;
 using namespace std;
 
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define ll long long int
 #define f(i,j,n) for(int i=j;i<n;i++)
@@ -32,6 +31,14 @@ using namespace std;
 #define pqmax priority_queue<int,vi,greater<int>>
 #define coutp(i) cout << fixed << setprecision(i)
 #define debug(x) cerr << "[ " << #x << " - " << x << " ]" << endl
+
+template<class T> 
+using ordered_set = tree<T, null_type,less<T>, rb_tree_tag,tree_order_statistics_node_update> ;
+ 
+template<class key, class value, class cmp = std::less<key>>
+using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+// find_by_order(k)  returns iterator to kth element starting from 0;
+// order_of_key(k) returns count of elements strictly smaller than k;
 
 const int inf = 1e9+7;
 const ll infl = 1e18+7;
