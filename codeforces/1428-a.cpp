@@ -21,7 +21,6 @@ using namespace std;
 #define all(a) a.begin(),a.end()
 #define sz(a) a.size()
 #define bit(x,i) (x&(1<<i))
-#define uniq(v) v.erase(v.unique(all(v)), v.end())
 #define umapi unordered_map<int,int>
 #define mapi map<int,int>
 #define useti unordered_set<int>
@@ -31,25 +30,35 @@ using namespace std;
 #define coutp(i) cout << fixed << setprecision(i)
 #define debug(x) cerr << "[ " << #x << " - " << x << " ]" << endl
 
-#define TEST
-
 const int inf = 1e9+7;
 const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
 void solve() {
+    int x1,y1,x2,y2;
+    cin>>x1>>y1>>x2>>y2;
+
+    if (x1 == x2) {
+        cout << abs(y2-y1) << endl;
+        return;
+    }
     
+    if (y1 == y2) {
+        cout << abs(x2-x1) << endl;
+        return;
+    }
+
+    cout << abs(x2-x1) + abs(y2-y1) + 2 << endl;
 }
 
 int main() {
     fastio;
-#ifdef TEST
+
     int t;
     cin>>t;
 
     while(t--) {
         solve();
     }
-#endif    
 }

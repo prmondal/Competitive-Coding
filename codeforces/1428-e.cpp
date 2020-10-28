@@ -21,7 +21,6 @@ using namespace std;
 #define all(a) a.begin(),a.end()
 #define sz(a) a.size()
 #define bit(x,i) (x&(1<<i))
-#define uniq(v) v.erase(v.unique(all(v)), v.end())
 #define umapi unordered_map<int,int>
 #define mapi map<int,int>
 #define useti unordered_set<int>
@@ -31,25 +30,64 @@ using namespace std;
 #define coutp(i) cout << fixed << setprecision(i)
 #define debug(x) cerr << "[ " << #x << " - " << x << " ]" << endl
 
-#define TEST
-
 const int inf = 1e9+7;
 const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
-void solve() {
+typedef struct {
+    ll len = 0;
+    ll parts = 1;
     
-}
+    ll anotherSplitCost() {
+        ll c1 = cost();
+        parts++;
+        ll c2 = cost();
+        parts--;
+        return c1 - c2;
+    }
+
+    ll cost () const {
+        ll d1 = len / parts;
+        ll n1 = len % parts;
+        ll n2 = parts - n1;
+        return d1*d1*n2 + (d1+1)*(d1+1)*n1;
+    }
+} node;
+
+struct cmp {
+    bool operator() (node& a, node& b) {
+        return a.anotherSplitCost() < b.anotherSplitCost();
+    }
+};
 
 int main() {
     fastio;
-#ifdef TEST
-    int t;
-    cin>>t;
 
-    while(t--) {
-        solve();
+    int n, k;
+    cin >> n >> k;
+
+    priority_queue<node, vector<node>, cmp> pq;
+    rep(i,n) {
+        node n;
+        cin >> n.len;
+        pq.push(n);
     }
-#endif    
+    
+    k -= n;
+    ll ans = 0;
+
+    rep(i,k) {
+        node t = pq.top();
+        pq.pop();
+        t.parts++;
+        pq.push(t);
+    }
+
+    while(!pq.empty()) {
+        ans += pq.top().cost();
+        pq.pop();
+    }
+
+    cout << ans << endl;
 }
