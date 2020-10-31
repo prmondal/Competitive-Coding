@@ -51,5 +51,7 @@ int main() {
     while(t--) {
         solve();
     }
+#else
+    solve();    
 #endif    
 }
