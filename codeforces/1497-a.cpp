@@ -33,14 +33,36 @@ using namespace std;
 
 #define TEST
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-const int inf = 0x3f3f3f;
+const int inf = 1e9+7;
+const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
 void solve() {
-    
+    int n;
+    cin>>n;
+    vi v(n);
+    int i;
+    rep(i,n) {
+        cin >> v[i];
+    }
+
+    sort(all(v));
+
+    vi ans;
+    vi duplicates;
+    ans.pb(v[0]);
+    for (i = 1; i < n; i++) {
+        if (v[i]!=v[i-1]) ans.pb(v[i]);
+        else duplicates.pb(v[i]);
+    }
+
+    for (auto& e: duplicates) ans.pb(e);
+
+    for (i = 0; i < n; i++) {
+        if (i==n-1) cout << ans[i] << endl;
+        else cout << ans[i] << " ";
+    }
 }
 
 int main() {

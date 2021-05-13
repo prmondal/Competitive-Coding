@@ -33,14 +33,41 @@ using namespace std;
 
 #define TEST
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-const int inf = 0x3f3f3f;
+const int inf = 1e9+7;
+const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
 void solve() {
-    
+    int n, k;
+    cin>>n>>k;
+
+    int i;
+    if (n==k) {
+        rep(i,k) {
+            if (i==k-1) cout << 1 << endl;
+            else cout << 1 << " ";
+        }
+        return; 
+    }
+
+    n = n-k+3;
+
+    if (n&1) {
+        cout << 1 << " " << (n-1)/2 << " " << (n-1)/2;
+    } else {
+        int c = n/2;
+        if (!(c&1)) {
+            cout << (n-c)/2 << " " << (n-c)/2 << " " << n/2;
+        } else {
+            cout << 2 << " " << n/2-1 << " " << n/2-1;
+        }
+    }
+
+    rep(i,k-3) {
+        cout << " " << 1;
+    }
+    cout << endl;
 }
 
 int main() {

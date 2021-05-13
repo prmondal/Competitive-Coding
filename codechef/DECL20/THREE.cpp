@@ -33,14 +33,28 @@ using namespace std;
 
 #define TEST
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-const int inf = 0x3f3f3f;
+const int inf = 1e9+7;
+const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
 void solve() {
-    
+    string s;
+    cin>>s;
+
+    unordered_map<char,int> m;
+    for(auto c:s){
+        if(m.find(c)!=m.end())m[c]++;
+        else m[c]=1;
+    }
+
+    int ans=0;
+    auto it = m.begin();
+    for (;it != m.end(); it++) {
+        ans += it->second/2;
+    }
+
+    cout << min(ans,(int)sz(s)/3) << endl;
 }
 
 int main() {
@@ -56,3 +70,9 @@ int main() {
     solve();    
 #endif    
 }
+//aaabbb - 2
+//aaaabbcc - 2
+//aabbbbccdd - 3
+//aabbccdde - 3
+//abcdd - 1
+//aaaabcccc - 3

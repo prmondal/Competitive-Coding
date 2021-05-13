@@ -33,14 +33,41 @@ using namespace std;
 
 #define TEST
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-const int inf = 0x3f3f3f;
+const int inf = 1e9+7;
+const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
 void solve() {
-    
+    int n;
+    cin>>n;
+    string s,p;
+    cin>>s>>p;
+
+    if(s==p){
+        cout<<"Yes"<<endl;
+    } else{
+        int pf1[n+1],pf2[n+1];
+        pf1[0]=pf2[0]=0;
+
+        int i;
+
+        rep(i,n){
+            pf1[i+1]=pf1[i]+(s[i]=='1');
+            pf2[i+1]=pf2[i]+(p[i]=='1');
+            
+            if (p[i]=='1' && s[i]=='0' && pf1[i+1] < pf2[i+1]) {
+                cout << "No" << endl;
+                return;
+            }
+        }
+
+        if (pf1[n] != pf2[n]) {
+            cout << "No" << endl;
+        } else {
+            cout << "Yes" << endl;
+        }
+    }
 }
 
 int main() {

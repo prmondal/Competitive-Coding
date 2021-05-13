@@ -31,16 +31,34 @@ using namespace std;
 #define coutp(i) cout << fixed << setprecision(i)
 #define debug(x) cerr << "[ " << #x << " - " << x << " ]" << endl
 
-#define TEST
+//#define TEST
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-const int inf = 0x3f3f3f;
+const int inf = 1e9+7;
+const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
 void solve() {
+    int n;
+    cin >> n;
+
+    vector<int> ans;
+    long long mul = 1;
+    for (int i = 1; i < n; i++) {
+        if (__gcd(i,n) == 1) {
+            ans.push_back(i);
+            mul=(mul*i)%n;
+        }   
+    }
     
+    if (mul!=1) ans.pop_back();
+
+    int k = (int) ans.size();
+    cout << k << endl;
+    for (int i = 0; i < k - 1; i++) {
+        cout << ans[i] << " ";
+    }
+    cout << ans[k-1] << endl;
 }
 
 int main() {

@@ -33,14 +33,27 @@ using namespace std;
 
 #define TEST
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-const int inf = 0x3f3f3f;
+const int inf = 1e9+7;
+const ll infl = 1e18+7;
 const double pi  = acos(-1);
 const double eps = 1e-9;
 
 void solve() {
-    
+    int n,k;
+    cin>>n>>k;
+    int a[n];
+    int i;
+    int sum = 0;
+    rep(i,n){
+        cin>>a[i];
+        sum+=a[i];
+    }
+
+    if (sum%k==0) {
+        cout << 0 << endl;
+    } else {
+        cout << 1 << endl;
+    }
 }
 
 int main() {
