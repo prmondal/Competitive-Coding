@@ -59,7 +59,7 @@ struct Query {
 
     bool operator<(const Query& o) const {
         if (block != o.block) return block < o.block;
-        return r < o.r;
+        return (block & 1) ? r < o.r : r > o.r;
     }
 };
 
