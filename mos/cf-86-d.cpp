@@ -43,8 +43,6 @@ const double pi  = acos(-1);
 const double eps = 1e-9;
 const int maxn = 1e6+5;
 
-int BLOCK_SIZE;
-
 inline ll gilbertOrder(int x, int y, int pow, int rotate) {
 	if (pow == 0) {
 		return 0;
@@ -70,13 +68,11 @@ struct Query {
     int l;
     int r;
     int idx;
-    int block;
     ll ord;
 
     Query() {}
 
     Query(int l, int r, int idx): l(l), r(r), idx(idx) {
-        block = l / BLOCK_SIZE;
         ord = gilbertOrder(l, r, 21, 0);
     }
 
@@ -90,8 +86,6 @@ void solve() {
     cin >> n >> q;
     ll arr[n];
     for (int i = 0; i < n; i++) cin >> arr[i];
-
-    BLOCK_SIZE = 1200;//sqrt(n); // 1200 is best so far
 
     vector<Query> queries;
     vector<ll> answer(q);
