@@ -1,4 +1,4 @@
-//Problem Link - https://codeforces.com/contest/221/problem/D
+//Problem Link - https://www.spoj.com/problems/DQUERY/
 
 #pragma GCC optimize("Ofast")
 

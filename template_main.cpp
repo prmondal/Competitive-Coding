@@ -34,6 +34,7 @@ using namespace std;
 #define TEST
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+#define uid(l, r) uniform_int_distribution<int>(l, r)(rng)
 
 const int inf = 0x3f3f3f;
 const double pi  = acos(-1);
