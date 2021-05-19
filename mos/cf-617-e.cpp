@@ -91,8 +91,8 @@ void add(int idx, int k) {
 }
 
 void remove(int idx, int k) {
-    ans -= freq[pref[idx]^k];
     freq[pref[idx]]--;
+    ans -= freq[pref[idx]^k];
 }
 
 void solve() {
@@ -102,12 +102,7 @@ void solve() {
     int arr[n];
     rep(i,n) {
         cin >> arr[i];
-
-        if (i == 0) {
-            pref[i] = arr[i];
-        } else {
-            pref[i] = pref[i-1]^arr[i];
-        }
+        pref[i+1] = pref[i]^arr[i];
     }
 
     vector<Query> queries;
@@ -117,14 +112,13 @@ void solve() {
         int l,r;
         cin >> l >> r;
         l--;
-        r--;
         queries.emplace_back(l,r,i);
     }
 
     sort(queries.begin(), queries.end());
     
-    int currL = 0;
-    int currR = -1;
+    int currL = 1;
+    int currR = 0;
 
     for (const auto& q: queries) {
         int qL = q.l;
