@@ -1,5 +1,3 @@
-int BLOCK_SIZE;
-
 inline ll gilbertOrder(int x, int y, int pow, int rotate) {
 	if (pow == 0) {
 		return 0;
@@ -25,13 +23,11 @@ struct Query {
     int l;
     int r;
     int idx;
-    int block;
     ll ord;
 
     Query() {}
 
     Query(int l, int r, int idx): l(l), r(r), idx(idx) {
-        block = l / BLOCK_SIZE;
         ord = gilbertOrder(l, r, 21, 0);
     }
 
