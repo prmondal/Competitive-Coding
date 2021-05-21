@@ -210,13 +210,8 @@ void solve() {
     int currUpdateIdx = 0;
 
     for (const auto& q: queries) {
-        int qL = q.l;
-        int qR = q.r;
-        int qIdx = q.idx;
-        int lcaIdx = q.lcaIdx;
- 
         while (currUpdateIdx < q.updateNumber) {
-            auto u = updates[currUpdateIdx];
+            const auto& u = updates[currUpdateIdx];
             
             if (currL <= st[u.idx] && currR >= st[u.idx]) {
                 addRemove(st[u.idx]);
@@ -262,36 +257,36 @@ void solve() {
             }
         }
  
-        while (currR < qR) {
+        while (currR < q.r) {
             currR++;
             addRemove(currR);
         }
  
-        while (currR > qR) {
+        while (currR > q.r) {
             addRemove(currR);
             currR--;
         } 
  
-        while (currL < qL) {
+        while (currL < q.l) {
             addRemove(currL);
             currL++;
         }
  
-        while (currL > qL) {
+        while (currL > q.l) {
             currL--;
             addRemove(currL);
         }
  
         // INCLUDE LCA
-        if (lcaIdx != lookup[qL]) {
-            addRemove(st[lcaIdx]);
+        if (q.lcaIdx != lookup[q.l]) {
+            addRemove(st[q.lcaIdx]);
         }
  
-        answer[qIdx] = ans;
+        answer[q.idx] = ans;
  
         // EXCLUDE LCA
-        if (lcaIdx != lookup[qL]) {
-            addRemove(st[lcaIdx]);
+        if (q.lcaIdx != lookup[q.l]) {
+            addRemove(st[q.lcaIdx]);
         }
     }
  
