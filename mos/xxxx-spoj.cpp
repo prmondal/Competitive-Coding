@@ -78,44 +78,59 @@ struct Update {
 };
  
 void solve() {
-    int n;
+    int n,i;
     cin >> n;
- 
+    BLOCK_SIZE = pow(n, 0.67);
+
+    vi compressionHelperCache;
     for (int i = 1; i <= n; i++) {
         cin >> arr[i];
-        arrCopy[i] = arr[i];
+        compressionHelperCache.pb(arr[i]);
     }
- 
+
     int q;
     cin >> q;
- 
-    BLOCK_SIZE = pow(n,0.67);
- 
+
     vector<Query> queries;
-    vector<Update> updates;
+    vii updateQueriesTemp;
     int queryIdx = 0;
-    
-    for (int i = 0; i < q; i++) {
+
+    rep(i,q) {
         string t;
         int l,r;
         cin >> t >> l >> r;
  
         if (t == "U") {
-            updates.emplace_back(l, r, arrCopy[l]);
-            arrCopy[l] = r;
+            updateQueriesTemp.pb({l, r});
+            compressionHelperCache.pb(r);
         } else {
-            queries.emplace_back(l, r, queryIdx++, (int) updates.size());
+            queries.emplace_back(l, r, queryIdx++, (int) updateQueriesTemp.size());
         } 
     }
- 
-    vector<ll> answer(q);
- 
+
+    sort(all(compressionHelperCache));
+    compressionHelperCache.erase(unique(all(compressionHelperCache)), compressionHelperCache.end());
+
+    for (int i = 1; i <= n; i++) {
+        arr[i] = lower_bound(all(compressionHelperCache), arr[i]) - compressionHelperCache.begin() + 1;
+        arrCopy[i] = arr[i];
+    }
+
+    vector<Update> updates;
+    for (const auto& q: updateQueriesTemp) {
+        int idx = q.first;
+        int val = lower_bound(all(compressionHelperCache), q.second) - compressionHelperCache.begin() + 1;
+        updates.emplace_back(idx, val, arrCopy[idx]);
+        arrCopy[idx] = val;
+    }
+
     sort(queries.begin(), queries.end());
- 
+
+    vector<ll> answer(q);
     int currL = 1;
     int currR = 0;
     int currUpdateIdx = 0;
- 
+
     for (const auto& q: queries) {
         int qL = q.l;
         int qR = q.r;
@@ -125,13 +140,13 @@ void solve() {
             auto u = updates[currUpdateIdx];
             
             if (currL <= u.idx && currR >= u.idx) {
-                if (freq[arr[u.idx]]-- == 1) ans -= arr[u.idx];
+                if (freq[arr[u.idx]]-- == 1) ans -= compressionHelperCache[arr[u.idx]-1];
             }
  
             arr[u.idx] = u.newVal;
  
             if (currL <= u.idx && currR >= u.idx) {
-                if (freq[arr[u.idx]]++ == 0) ans += arr[u.idx];
+                if (freq[arr[u.idx]]++ == 0) ans += compressionHelperCache[arr[u.idx]-1];
             }
  
             currUpdateIdx++;
@@ -142,34 +157,34 @@ void solve() {
             auto u = updates[currUpdateIdx];
             
             if (currL <= u.idx && currR >= u.idx) {
-                if (freq[arr[u.idx]]-- == 1) ans -= arr[u.idx];
+                if (freq[arr[u.idx]]-- == 1) ans -= compressionHelperCache[arr[u.idx]-1];
             }
  
             arr[u.idx] = u.oldVal;
  
             if (currL <= u.idx && currR >= u.idx) {
-                if (freq[arr[u.idx]]++ == 0) ans += arr[u.idx];
+                if (freq[arr[u.idx]]++ == 0) ans += compressionHelperCache[arr[u.idx]-1];
             }
         }
  
         while (currR < qR) {
             currR++;
-            if (freq[arr[currR]]++ == 0) ans += arr[currR];
+            if (freq[arr[currR]]++ == 0) ans += compressionHelperCache[arr[currR]-1];
         }
  
         while (currR > qR) {
-            if (freq[arr[currR]]-- == 1) ans -= arr[currR];
+            if (freq[arr[currR]]-- == 1) ans -= compressionHelperCache[arr[currR]-1];
             currR--;
         } 
  
         while (currL < qL) {
-            if (freq[arr[currL]]-- == 1) ans -= arr[currL];
+            if (freq[arr[currL]]-- == 1) ans -= compressionHelperCache[arr[currL]-1];
             currL++;
         }
  
         while (currL > qL) {
             currL--;
-            if (freq[arr[currL]]++ == 0) ans += arr[currL];
+            if (freq[arr[currL]]++ == 0) ans += compressionHelperCache[arr[currL]-1];
         }
  
         answer[qIdx] = ans;
