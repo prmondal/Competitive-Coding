@@ -1,0 +1,69 @@
+struct point {
+	ll x, y, id;
+
+	point(ll x, ll y, int id): x(x),y(y),id(id) {}
+
+	point operator-(const point& p) {
+		return point({x-p.x, y-p.y, -1});
+	}
+};
+
+ll cross(point p1, point p2) {
+	return p1.x*p2.y - p1.y*p2.x;
+}
+
+ll cross(point p1, point p2, point p3) {
+	point v1 = p2-p1;
+	point v2 = p3-p2;
+	return cross(v1, v2);
+}
+
+vector<point> convexHull(vector<point>& input) {
+	if (input.size() == 1) return vector<point>();
+
+	sort(all(input), [] (const point& p1, const point& p2) {
+		if (p1.x == p2.x) return p1.y < p2.y;
+		return p1.x < p2.x;
+	});
+
+	point a = input.front();
+	point b = input.back();
+
+	int n = input.size();
+
+	vector<point> up, down;
+	up.pb(a);
+	down.pb(a);
+
+	for (int i = 1; i < n; i++) {
+		while(up.size() >= 2 && cross(up[up.size()-2], up[up.size()-1], input[i]) > 0) up.pop_back();
+		up.pb(input[i]);
+
+		while(down.size() >= 2 && cross(down[down.size()-2], down[down.size()-1], input[i]) < 0) down.pop_back();
+		down.pb(input[i]);
+	}
+
+	vector<point> hull;
+	
+	for (int i = 0; i < up.size(); i++) {
+		hull.pb(up[i]);
+	}
+
+	for (int i = down.size() - 2; i > 0; i--) {
+		hull.pb(down[i]);
+	}
+
+	return hull;
+}
+
+bool isPointInHull(const vector<point>& hull, const point& p) {
+	int i, n = hull.size();
+
+	rep(i,n) {
+		if (cross(hull[i], hull[(i+1)%n], p) >= 0) {
+			return false;
+		}
+	}
+
+	return true;
+}

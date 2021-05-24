@@ -3,6 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define endl "\n"
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define ll long long int
 #define f(i,j,n) for(int i=j;i<n;i++)
@@ -12,10 +13,10 @@ using namespace std;
 #define mp make_pair
 #define ss second
 #define ff first
-#define pii pair<int,int>
-#define pll pair<ll,ll>
 #define vi vector<int>
 #define vl vector<ll>
+#define pii pair<int,int>
+#define pll pair<ll,ll>
 #define vii vector<pii>
 #define vll vector<pll>
 #define all(a) a.begin(),a.end()
@@ -29,16 +30,19 @@ using namespace std;
 #define pqmin priority_queue<int>
 #define pqmax priority_queue<int,vi,greater<int>>
 #define coutp(i) cout << fixed << setprecision(i)
-#define debug(x) cerr << "[ " << #x << " - " << x << " ]" << endl
+#define debug(x) cerr << "[ " << #x << " - " << x << " ]" << "\n"
 
 #define TEST
 
+// Use mt19937_64 for 64 bit random number
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 #define uid(l, r) uniform_int_distribution<int>(l, r)(rng)
+#define shuf(v) shuffle(all(v), rng);
 
-const int inf = 0x3f3f3f;
-const double pi  = acos(-1);
-const double eps = 1e-9;
+const int INF = 0x3f3f3f3f;
+const ll INFL = 1LL << 61;
+const double PI  = acos(-1);
+const double EPS = 1e-9;
 
 void solve() {
     
