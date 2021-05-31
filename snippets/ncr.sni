@@ -11,7 +11,7 @@ ll modpow(ll x, ll b, int mod){
     return res;
 }
 
-void preComF(){
+void preComInvf(){
 	fact[0]=1;
 	int i;
 	for(i=1;i<N;i++){
