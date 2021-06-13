@@ -1,3 +1,5 @@
+//////////////////// ORDERED SET/MAP ////////////////////
+
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
@@ -20,3 +22,19 @@ o_set.insert(5);
 // Finding the number of elements
 // strictly less than k=4
 o_set.order_of_key(4)
+
+//////////////////// TRIE ////////////////////
+typedef trie<
+string,
+null_type,
+trie_string_access_traits<>,
+pat_trie_tag,
+trie_prefix_search_node_update>
+pref_trie;
+ 
+pref_trie base;
+base.insert("xyz");
+
+auto range=base.prefix_range("xy");
+for(auto it=range.first;it!=range.second;it++)cout<<*it<<endl;
+ 
