@@ -6,8 +6,8 @@ using namespace std;
 #define endl "\n"
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 #define ll long long int
-#define f(i,j,n) for(int i=j;i<=n;i++)
-#define rep(i,n) f(i,0,n-1)
+#define f(i,j,n) for(int i=j;i<n;i++)
+#define rep(i,n) f(i,0,n)
 #define repr(i,n) for(int i=n-1;i>=0;i--)
 #define pb push_back
 #define mp make_pair
@@ -39,13 +39,50 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 #define uid(l, r) uniform_int_distribution<int>(l, r)(rng)
 #define shuf(v) shuffle(all(v), rng);
 
-const int INF = 0x3f3f3f3f;
+const int INF = 1e9+7;
 const ll INFL = 1LL << 61;
 const double PI  = acos(-1);
 const double EPS = 1e-9;
 
+
 void solve() {
-    
+    int n;
+    cin >> n;
+
+    int b[n];
+    int i;
+
+    rep(i,n) cin >> b[i];
+
+    seti st;
+    st.insert(b[0]);
+    int last = b[0];
+    bool valid = true;
+
+    f(i,1,n) {
+        if (b[i] > last) {
+            auto it = st.upper_bound(last);
+            if (it != st.end() && *it < b[i]) {
+                valid = false;
+                break;
+            }
+        } else if (b[i] < last) {
+            auto it = st.upper_bound(b[i]);
+            if (it != st.end() && *it < last) {
+                valid = false;
+                break;
+            }
+        } 
+
+        last = b[i];
+        st.insert(b[i]);
+    }
+
+    if (valid) {
+        cout << "YES" << endl;
+    } else {
+        cout << "NO" << endl;
+    }
 }
 
 int main() {

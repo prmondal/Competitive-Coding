@@ -1,4 +1,3 @@
-// https://open.kattis.com/problems/coveredwalkway
 #pragma GCC optimize("Ofast")
 
 #include <bits/stdc++.h>
@@ -33,7 +32,7 @@ using namespace std;
 #define coutp(i) cout << fixed << setprecision(i)
 #define debug(x) cerr << "[ " << #x << " - " << x << " ]" << "\n"
 
-//#define TEST
+#define TEST
 
 // Use mt19937_64 for 64 bit random number
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
@@ -45,58 +44,47 @@ const ll INFL = 1LL << 61;
 const double PI  = acos(-1);
 const double EPS = 1e-9;
 
-//https://github.com/kth-competitive-programming/kactl/blob/main/content/data-structures/LineContainer.h
-struct Line {
-	mutable ll k, m, p;
-	bool operator<(const Line& o) const { return k < o.k; }
-	bool operator<(ll x) const { return p < x; }
-};
-
-struct LineContainer : multiset<Line, less<>> {
-	// (for doubles, use inf = 1/.0, div(a,b) = a/b)
-	static const ll inf = LLONG_MAX;
-	ll div(ll a, ll b) { // floored division
-		return a / b - ((a ^ b) < 0 && a % b); }
-	bool isect(iterator x, iterator y) {
-		if (y == end()) return x->p = inf, 0;
-		if (x->k == y->k) x->p = x->m > y->m ? inf : -inf;
-		else x->p = div(y->m - x->m, x->k - y->k);
-		return x->p >= y->p;
-	}
-	void add(ll k, ll m) {
-		auto z = insert({k, m, 0}), y = z++, x = y;
-		while (isect(y, z)) z = erase(z);
-		if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
-		while ((y = x) != begin() && (--x)->p >= y->p)
-			isect(x, erase(y));
-	}
-	ll query(ll x) {
-		assert(!empty());
-		auto l = *lower_bound(x);
-		return l.k * x + l.m;
-	}
-};
-
 void solve() {
-    ll n,c;
-    cin >> n >> c;
+    int n;
+    cin >> n;
 
-    ll a[n],dp[n],i;
-    
+    string s;
+    cin >> s;
+
+    unordered_map<string, int> mp;
+
+    int i;
+    int d = 0;
+    int k = 0;
+    vi ans;
+
     rep(i,n) {
-        cin >> a[i];
+        if (s[i]=='D') d++;
+        else k++;
+
+        if (k==0) {
+            ans.pb(d);
+            continue;
+        }
+
+        int g = __gcd(d,k);
+        int dd = d/g;
+        int kk = k/g;
+        string key = to_string(dd)+"-"+to_string(kk);
+        
+        if (mp.find(key) != mp.end()) {
+            ans.pb(mp[key]+1);
+        } else {
+            ans.pb(1);       
+        }
+
+        mp[key]++;
     }
 
-    LineContainer LC;
-    dp[0] = 0;
-    LC.add(2*a[0], -a[0]*a[0]);
-
-    f(i,1,n) {
-        dp[i] = c + a[i]*a[i] - LC.query(a[i]);
-        LC.add(2*a[i], -a[i]*a[i]-dp[i]); // (-m,-b)
+    rep(i,n) {
+        if (i<n-1) cout << ans[i] << " ";
+        else cout << ans[i] << endl;
     }
-
-    cout << dp[n-1] << endl;
 }
 
 int main() {
