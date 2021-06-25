@@ -24,6 +24,10 @@ o_set.insert(5);
 o_set.order_of_key(4)
 
 //////////////////// TRIE ////////////////////
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/trie_policy.hpp>
+using namespace __gnu_pbds;
+
 typedef trie<
 string,
 null_type,
